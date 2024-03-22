@@ -1,4 +1,5 @@
 import type { EventHandler, EventHandlerRequest, H3Error } from "h3";
+import {getQuery} from "#imports";
 
 export const defineBackendRequestHandler = <
   T extends EventHandlerRequest,
@@ -10,6 +11,7 @@ export const defineBackendRequestHandler = <
   defineEventHandler<T>(async (event) => {
     try {
       const config = useRuntimeConfig(event);
+      const query = getQuery(event)
 
       const data = await $fetch(requestConfig.route, {
         method: requestConfig.method,
@@ -18,6 +20,7 @@ export const defineBackendRequestHandler = <
           Accept: "application/json",
           Authorization: event.context.auth,
         },
+        query,
         onResponseError({ request, response }) {
           console.error(
             "[Backend request failure]",
