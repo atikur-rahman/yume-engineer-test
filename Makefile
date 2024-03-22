@@ -9,9 +9,15 @@ setup:
 
 	# Set up .env file if missing
 	docker-compose run --rm --entrypoint php api -r "file_exists('.env') || copy('.env.example', '.env');"
+
+	# Set up .env.tesing file if missing
+	docker-compose run --rm --entrypoint php api -r "file_exists('.env.testing') || copy('.env.testing.example', '.env.testing');"
 	
 	# Generate application key
 	docker-compose run --rm api key:generate
+
+	# Generate application key for phpunit env
+	docker-compose run --rm api key:generate --env=testing
 	
 	# Run database migrations
 	docker-compose run --rm api migrate:fresh
