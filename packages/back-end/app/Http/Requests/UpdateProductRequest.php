@@ -21,7 +21,7 @@ class UpdateProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        //we are making name, price nullable also, if some property is not provided then that property  will not be updated.
+        //making name nullable also, if some name is not provided then name  will not be updated.
         //this way we can do partial update.
         return [
             'name' => ['nullable', 'string', 'max:255', 'min:3'],

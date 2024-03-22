@@ -16,9 +16,9 @@ class ProductService
     public function store(array $data)
     {
         $product = new Product();
-        $product->title = $data['title'];
-        $product->price = $data['price'];
-        $product->description = $data['description'];
+        $product->name = $data['name'];
+        $product->price = $data['price'] ?? null;
+        $product->description = $data['description'] ?? '';
         $product->save();
 
         return $product;

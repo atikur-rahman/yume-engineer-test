@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
@@ -51,10 +52,10 @@ class ProductController extends Controller
 
     /**
      * Create new product
-     * @param Request $request
+     * @param CreateProductRequest $request
      * @return JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(CreateProductRequest $request): JsonResponse
     {
         try {
             $product = $this->productService->store($request->toArray());
@@ -98,7 +99,7 @@ class ProductController extends Controller
         try {
             $this->productService->delete($id);
 
-            return $this->sendSuccessResponse("Product deleted successfully.");
+            return $this->sendSuccessResponse("Product deleted successfully.", 204);
 
         } catch (\Throwable $throwable) {
             return $this->sendErrorResponse($throwable);
