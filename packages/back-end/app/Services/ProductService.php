@@ -4,16 +4,31 @@ namespace App\Services;
 
 use App\Models\Product;
 use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ProductService
 {
+    /**
+     * Get a paginated list of products.
+     *
+     * @param array $options
+     * @return LengthAwarePaginator
+     */
+    public function get(array $options = []): LengthAwarePaginator
+    {
+        $perPage = $options['per_page'] ?? 15;
+        info($perPage);
+
+        return Product::query()->paginate($perPage);
+    }
+
     /**
      * Store a new product in the database.
      *
      * @param array $data The data of the product to be stored
      * @return Product The newly created product
      */
-    public function store(array $data)
+    public function store(array $data): Product
     {
         $product = new Product();
         $product->name = $data['name'];

@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 /**
  * Class ProductController
@@ -31,11 +32,17 @@ class ProductController extends Controller
 
     /**
      * Get all products
-     * @return JsonResponse
+     *
+     * @param Request $request
+     * @return AnonymousResourceCollection
      */
-    public function index(): JsonResponse
+    public function index(Request $request): AnonymousResourceCollection
     {
-        return response()->json(Product::all());
+        info("query, query", $request->toArray());
+
+        $data = $this->productService->get($request->toArray());
+
+        return ProductResource::collection($data);
     }
 
     /**

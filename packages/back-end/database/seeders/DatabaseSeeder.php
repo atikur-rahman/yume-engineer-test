@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'techtest@yumefood.com.au',
         ]);
 
-        \App\Models\Product::factory()->count(10)->create();
+        \App\Models\Product::factory()->count(100)->create();
     }
 }
