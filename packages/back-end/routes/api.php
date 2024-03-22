@@ -9,5 +9,6 @@ Route::middleware('auth:api')->group(function(){
         return $request->user();
     });
 
-    Route::get('/products', [ProductController::class, 'index']);
 });
+Route::resource('/products', ProductController::class);
+
