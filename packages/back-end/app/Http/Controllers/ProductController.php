@@ -38,8 +38,6 @@ class ProductController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        info("query, query", $request->toArray());
-
         $data = $this->productService->get($request->toArray());
 
         return ProductResource::collection($data);
